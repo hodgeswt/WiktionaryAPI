@@ -35,7 +35,7 @@ public struct WiktionaryAPI {
         return "https://\(self.endpoint)/core/v1/wiktionary/\(self.lang)"
     }
     
-    public func Search(type: SearchType, search: String, limit: String? = nil, completion: @escaping (JSONDict?, Error?) -> Void) async -> String {
+    public func Search(type: SearchType, search: String, limit: String? = nil) async -> String {
         
         let url: URL = URL(string: "\(GetApiUrl())/\(type)/")!
         
