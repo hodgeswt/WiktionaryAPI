@@ -35,7 +35,7 @@ public struct WiktionaryAPI {
         return "https://\(self.endpoint)/core/v1/wiktionary/\(self.lang)"
     }
     
-    public func Search(type: SearchType, search: String, limit: String? = nil) async -> String {
+    public func Search(type: SearchType, search: String, limit: String? = nil) async -> [String: Any]? {
         
         let url: URL = URL(string: "\(GetApiUrl())/\(type)/")!
         
@@ -49,9 +49,9 @@ public struct WiktionaryAPI {
             }
             
             let resp = try await req.fetch()
-            return try resp.decode(String.self)
+            return try resp.decodeJSONData([String: Any].self, options: .fragmentsAllowed)
         } catch {
-            return String.Empty
+            return [String: Any]()
         }
         
     }
